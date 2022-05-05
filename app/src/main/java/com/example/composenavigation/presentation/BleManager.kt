@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.welie.blessed.BluetoothCentralManager
 import com.welie.blessed.BluetoothPeripheral
+import timber.log.Timber
 
 
 object BleManager {
@@ -17,6 +18,7 @@ object BleManager {
         if (bleManager == null) {
             bleManager = BluetoothCentralManager(context)
         }
+
         return bleManager;
     }
 

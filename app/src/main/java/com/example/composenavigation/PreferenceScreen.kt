@@ -225,7 +225,7 @@ fun PreferenceScreen(
                         Text(text = "Delete device")
                     },
                     text = {
-                        Text(text = "Are you shure to remove device?")
+                        Text(text = "Are you sure to remove device?")
                     },
                     confirmButton = {
                         Button(

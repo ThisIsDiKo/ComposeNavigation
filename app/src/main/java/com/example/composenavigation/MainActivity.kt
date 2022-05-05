@@ -18,9 +18,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.composenavigation.data.AppSettingsSerializer
+import com.example.composenavigation.presentation.BleManager
 import com.example.composenavigation.ui.theme.ComposeNavigationTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import timber.log.Timber
 
 val Context.dataStore by dataStore("app-settings-controller.json", AppSettingsSerializer)
 
@@ -28,6 +30,12 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalPermissionsApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        BleManager.getInstance(applicationContext)
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
         setContent {
             ComposeNavigationTheme {
                 val systemUiController = rememberSystemUiController()

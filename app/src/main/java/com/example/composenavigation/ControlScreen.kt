@@ -18,6 +18,8 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavController
 import com.example.composenavigation.presentation.ControlViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.composenavigation.presentation.BleManager
+import timber.log.Timber
 
 @Composable
 fun ControlScreen(

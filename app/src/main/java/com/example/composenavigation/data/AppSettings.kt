@@ -9,7 +9,6 @@ data class AppSettings(
     val useTank: Boolean = false,
     val pressureUnits: PressureUnits = PressureUnits.BAR,
     val pressureSensType: PressureSensorType = PressureSensorType.CATLEPILLAR_0_14
-
 )
 
 enum class PressureUnits{

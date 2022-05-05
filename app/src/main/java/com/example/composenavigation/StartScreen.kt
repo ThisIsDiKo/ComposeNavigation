@@ -20,6 +20,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.welie.blessed.ConnectionState
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 //DA:3A:0B:BA:D1:CF
 
@@ -35,7 +36,7 @@ fun StartScreen(
     }
     val appSettings = context.dataStore.data.collectAsState(initial = AppSettings()).value
 
-    //val bleManager = BleManager.getInstance(context)
+
 
     val myScope = rememberCoroutineScope()
 
@@ -118,13 +119,22 @@ fun StartScreen(
         Spacer(modifier = Modifier.height(10.dp))
         Button(
             onClick = {
+
                 myScope.launch {
                     try{
                         println("Trying to connect to ${appSettings.deviceAddress}")
                         BleManager.blePeripheral = BleManager.bleManager?.getPeripheral(appSettings.deviceAddress)
                         if (BleManager.blePeripheral != null){
                             connectionIndicator.value = true
+                            var isConnected =
+
                             BleManager.bleManager?.connectPeripheral(BleManager.blePeripheral!!)
+//                            BleManager.bleManager?.observeConnectionState { peripheral, state ->
+//                                Timber.e("Peripheral ${peripheral.address} change state to $state")
+//                            }
+//                            BleManager.bleManager?.autoConnectPeripheral(BleManager.blePeripheral!!)
+                            BleManager.blePeripheral?.requestMtu(65)
+                            Timber.e("Current mtu is ${BleManager.blePeripheral?.currentMtu}")
                         }
                         else {
                             println("Myperipheral is null")
