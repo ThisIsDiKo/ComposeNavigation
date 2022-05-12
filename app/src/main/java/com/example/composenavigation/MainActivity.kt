@@ -18,6 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.composenavigation.data.AppSettingsSerializer
+import com.example.composenavigation.feature_control.presenter.SimpleScreen
 import com.example.composenavigation.presentation.BleManager
 import com.example.composenavigation.ui.theme.ComposeNavigationTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -31,7 +32,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        BleManager.getInstance(applicationContext)
+        //BleManager.getInstance(applicationContext)
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
@@ -54,10 +55,11 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 val navController = rememberNavController()
 
-                NavHost(navController = navController, startDestination = "startscreen") {
+                NavHost(navController = navController, startDestination = "simplescreen") {
                     composable("startscreen") { StartScreen(navController = navController, context = applicationContext) }
                     composable("preferencescreen") { PreferenceScreen(navController = navController, context = applicationContext) }
                     composable("controlscreen") { ControlScreen(navController)}
+                    composable("simplescreen"){ SimpleScreen()}
                 }
             }
         }
