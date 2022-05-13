@@ -6,13 +6,23 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.composenavigation.feature_control.domain.model.OutputsModel
 import timber.log.Timber
 
+
 @Composable
-fun SimpleScreen(){
+fun SimpleScreen(
+    viewModel: SimpleScreenViewModel = hiltViewModel()
+){
+    val textContent = viewModel.messageContent.value
+    val isScanning = remember {
+        mutableStateOf(false)
+    }
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -33,5 +43,41 @@ fun SimpleScreen(){
         ) {
             Text("Click me")
         }
+        Button(onClick = {
+            viewModel.onConnectClicked()
+        }) {
+            Text("Connect")
+        }
+        Button(onClick = {
+            viewModel.onDisconnectClicked()
+        }) {
+            Text("Disconnect")
+        }
+        Button(onClick = {
+            viewModel.onReadClicked()
+        }) {
+            Text("Read values")
+        }
+        Button(onClick = {
+            viewModel.onWriteClicked()
+        }) {
+            Text("write values")
+        }
+        Button(onClick = {
+            if (isScanning.value){
+                //TODO: stop scan
+                viewModel.onStopScanClicked()
+            }
+            else {
+                //TODO: start scan
+                viewModel.onStartScanClicked()
+            }
+            isScanning.value = !isScanning.value
+        }) {
+            Text(
+                text = if (isScanning.value) "Stop scan" else "Start scan"
+            )
+        }
+        Text(text = viewModel.messageContent.value)
     }
 }

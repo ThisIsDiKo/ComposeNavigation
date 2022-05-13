@@ -16,7 +16,13 @@ data class SensorsRawValuesModel(
     val isCalibrating: Boolean = false,
     val isAligning: Boolean = false
 ){
-    fun convertToPressureUnits(){
-
+    fun convertToPressureUnits(): SensorsModel{
+        return SensorsModel(
+            pressure1 = pressure1.toDouble(),
+            pressure2 = pressure2.toDouble(),
+            pressure3 = pressure3.toDouble(),
+            pressure4 = pressure4.toDouble(),
+            pressure5 = pressure5.toDouble(),
+        )
     }
 }

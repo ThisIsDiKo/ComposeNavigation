@@ -13,6 +13,4 @@ class DKBleManager(
     init {
         bleCentralManager = BluetoothCentralManager(context)
     }
-
-
 }

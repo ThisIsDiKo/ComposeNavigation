@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.composenavigation.core.DKBleManager
 import com.example.composenavigation.feature_control.data.DKControllerImpl
 import com.example.composenavigation.feature_control.domain.repository.DKController
+import com.example.composenavigation.feature_control.domain.use_case.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,5 +26,18 @@ object AppModule {
     @Singleton
     fun provideDkController(bleManager: DKBleManager): DKController{
         return DKControllerImpl(bleManager)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDKControllerUseCases(dkController: DKController): DKControllerUseCases{
+        return DKControllerUseCases(
+            connectToPeripheral = ConnectToPeripheral(dkController),
+            disconnectFromPeripheral = DisconnectFromPeripheral(dkController),
+            readSensorsValues = ReadSensorsValues(dkController),
+            writeOutputs = WriteOutputs(dkController),
+            startScanForPeripherals = StartScanForPeripherals(dkController),
+            stopScanForPeripherals = StopScanForPeripherals(dkController)
+        )
     }
 }

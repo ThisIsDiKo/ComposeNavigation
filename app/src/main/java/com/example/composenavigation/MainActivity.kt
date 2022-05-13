@@ -19,14 +19,17 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.composenavigation.data.AppSettingsSerializer
 import com.example.composenavigation.feature_control.presenter.SimpleScreen
+import com.example.composenavigation.feature_control.presenter.scan.ScanScreen
 import com.example.composenavigation.presentation.BleManager
 import com.example.composenavigation.ui.theme.ComposeNavigationTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 val Context.dataStore by dataStore("app-settings-controller.json", AppSettingsSerializer)
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalPermissionsApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,11 +58,12 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 val navController = rememberNavController()
 
-                NavHost(navController = navController, startDestination = "simplescreen") {
+                NavHost(navController = navController, startDestination = "scanscreen") {
                     composable("startscreen") { StartScreen(navController = navController, context = applicationContext) }
                     composable("preferencescreen") { PreferenceScreen(navController = navController, context = applicationContext) }
                     composable("controlscreen") { ControlScreen(navController)}
                     composable("simplescreen"){ SimpleScreen()}
+                    composable("scanscreen"){ScanScreen()}
                 }
             }
         }
