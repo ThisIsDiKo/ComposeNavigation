@@ -91,6 +91,7 @@ class DKControllerImpl(
         resultCallback: (BluetoothPeripheral, ScanResult) -> Unit,
         scanError: (ScanFailure) -> Unit
     ) {
+        //TODO setScanMode to reduce scan frequency
         bleManager.bleCentralManager?.scanForPeripherals(
             resultCallback = resultCallback,
             scanError = scanError

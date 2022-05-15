@@ -19,11 +19,18 @@ class ScanScreenViewModel @Inject constructor(
 
     fun startScanning(){
         //TODO: нужно изменить список, чтобы не ловить ошибку java.util.ConcurrentModificationException
+        //Убираем ипользование итератора с индексами
         _bleDevices.clear()
         dkControllerUseCases.startScanForPeripherals(
             resultCallback = {peripheral, scanResult ->
-                val index = _bleDevices.indexOfFirst { it.MAC == peripheral.address }
-                Timber.i("Found peripheral '${peripheral.address}' with RSSI ${scanResult.rssi}")
+                var index = -1
+                for (i in _bleDevices.indices){
+                    if (_bleDevices[i].MAC == peripheral.address){
+                        index = i
+                    }
+                }
+                //val index = _bleDevices.indexOfFirst { it.MAC == peripheral.address }
+                //Timber.i("Found peripheral '${peripheral.address}' with RSSI ${scanResult.rssi}")
                 if (index != -1){
                     _bleDevices[index] = BleSimplePeripheral(
                         MAC = peripheral.address,
