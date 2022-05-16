@@ -1,9 +1,6 @@
-package com.example.composenavigation.feature_control.domain.use_case
+package com.example.composenavigation.feature_control.domain.use_case.DKController
 
-import android.bluetooth.le.ScanResult
 import com.example.composenavigation.feature_control.domain.repository.DKController
-import com.welie.blessed.BluetoothPeripheral
-import com.welie.blessed.ScanFailure
 
 class StopScanForPeripherals(
     private val dkController: DKController

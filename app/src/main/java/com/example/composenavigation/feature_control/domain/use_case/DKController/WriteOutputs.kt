@@ -1,4 +1,4 @@
-package com.example.composenavigation.feature_control.domain.use_case
+package com.example.composenavigation.feature_control.domain.use_case.DKController
 
 import com.example.composenavigation.feature_control.domain.model.OutputsModel
 import com.example.composenavigation.feature_control.domain.repository.DKController

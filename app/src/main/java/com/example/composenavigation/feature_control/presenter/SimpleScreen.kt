@@ -6,23 +6,44 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.composenavigation.feature_control.domain.model.OutputsModel
+import com.example.composenavigation.feature_control.presenter.scan.ScanScreenViewModel
+import kotlinx.coroutines.flow.collectLatest
 import timber.log.Timber
 
 
 @Composable
 fun SimpleScreen(
+    navController: NavController,
     viewModel: SimpleScreenViewModel = hiltViewModel()
 ){
     val textContent = viewModel.messageContent.value
     val isScanning = remember {
         mutableStateOf(false)
     }
+
+
+    LaunchedEffect(key1 = true){
+        viewModel.eventFlow.collectLatest { event ->
+            when(event){
+                is SimpleScreenViewModel.UiEvent.NavigateTo -> {
+                    navController.navigate(event.destination){
+                        popUpTo("simplescreen"){
+                            inclusive = true
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -78,6 +99,12 @@ fun SimpleScreen(
                 text = if (isScanning.value) "Stop scan" else "Start scan"
             )
         }
+        Button(onClick = {
+            viewModel.onClearDeviceAddressClicked()
+        }) {
+            Text("clear device address")
+        }
         Text(text = viewModel.messageContent.value)
+
     }
 }

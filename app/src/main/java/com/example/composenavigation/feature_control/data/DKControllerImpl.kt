@@ -14,6 +14,7 @@ import com.example.composenavigation.presentation.BleManager
 import com.example.composenavigation.presentation.ControlViewModel
 import com.welie.blessed.BluetoothPeripheral
 import com.welie.blessed.ScanFailure
+import com.welie.blessed.ScanMode
 import com.welie.blessed.WriteType
 import timber.log.Timber
 
@@ -92,6 +93,7 @@ class DKControllerImpl(
         scanError: (ScanFailure) -> Unit
     ) {
         //TODO setScanMode to reduce scan frequency
+        bleManager.bleCentralManager?.setScanMode(ScanMode.BALANCED)
         bleManager.bleCentralManager?.scanForPeripherals(
             resultCallback = resultCallback,
             scanError = scanError

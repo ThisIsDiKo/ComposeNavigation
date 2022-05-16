@@ -4,15 +4,9 @@ import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.datastore.dataStore
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -20,7 +14,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.composenavigation.data.AppSettingsSerializer
 import com.example.composenavigation.feature_control.presenter.SimpleScreen
 import com.example.composenavigation.feature_control.presenter.scan.ScanScreen
-import com.example.composenavigation.presentation.BleManager
 import com.example.composenavigation.ui.theme.ComposeNavigationTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -58,12 +51,12 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 val navController = rememberNavController()
 
-                NavHost(navController = navController, startDestination = "scanscreen") {
-                    composable("startscreen") { StartScreen(navController = navController, context = applicationContext) }
-                    composable("preferencescreen") { PreferenceScreen(navController = navController, context = applicationContext) }
-                    composable("controlscreen") { ControlScreen(navController)}
-                    composable("simplescreen"){ SimpleScreen()}
-                    composable("scanscreen"){ScanScreen()}
+                NavHost(navController = navController, startDestination = "simplescreen") {
+                    //composable("startscreen") { StartScreen(navController = navController, context = applicationContext) }
+                    //composable("preferencescreen") { PreferenceScreen(navController = navController, context = applicationContext) }
+                    //composable("controlscreen") { ControlScreen(navController)}
+                    composable("simplescreen"){ SimpleScreen(navController)}
+                    composable("scanscreen"){ScanScreen(navController)}
                 }
             }
         }
