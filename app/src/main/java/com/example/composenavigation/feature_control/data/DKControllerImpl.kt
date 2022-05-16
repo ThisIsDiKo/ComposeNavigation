@@ -12,10 +12,7 @@ import com.example.composenavigation.feature_control.domain.model.SensorsRawValu
 import com.example.composenavigation.feature_control.domain.repository.DKController
 import com.example.composenavigation.presentation.BleManager
 import com.example.composenavigation.presentation.ControlViewModel
-import com.welie.blessed.BluetoothPeripheral
-import com.welie.blessed.ScanFailure
-import com.welie.blessed.ScanMode
-import com.welie.blessed.WriteType
+import com.welie.blessed.*
 import timber.log.Timber
 
 class DKControllerImpl(
@@ -77,11 +74,10 @@ class DKControllerImpl(
         }
     }
 
-    override fun observerConnectionStatus(callback: (Unit) -> Unit) {
-//        bleManager.bleCentralManager?.observeConnectionState{peripheral, state ->
-//
-//        }
-        TODO("Need to realise")
+    override fun observerConnectionStatus(connectionCallback: (peripheral : BluetoothPeripheral, state : ConnectionState) -> Unit) {
+        bleManager.bleCentralManager?.observeConnectionState{peripheral, state ->
+            connectionCallback(peripheral, state)
+        }
     }
 
     override fun getCurrentPeripheral(): BluetoothPeripheral?{
@@ -92,7 +88,6 @@ class DKControllerImpl(
         resultCallback: (BluetoothPeripheral, ScanResult) -> Unit,
         scanError: (ScanFailure) -> Unit
     ) {
-        //TODO setScanMode to reduce scan frequency
         bleManager.bleCentralManager?.setScanMode(ScanMode.BALANCED)
         bleManager.bleCentralManager?.scanForPeripherals(
             resultCallback = resultCallback,

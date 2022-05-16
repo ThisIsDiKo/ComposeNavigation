@@ -7,6 +7,7 @@ import com.welie.blessed.BluetoothPeripheral
 class DKBleManager(
     context: Context
 ) {
+    //TODO switch to var bleCentralManager: BluetoothCentralManager = BluetoothCentralManager(context)
     var bleCentralManager: BluetoothCentralManager? = null
     var blePeripheral: BluetoothPeripheral? = null
 
