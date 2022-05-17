@@ -11,8 +11,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.composenavigation.data.AppSettings
 import com.example.composenavigation.data.PressureSensorType
 import com.example.composenavigation.data.PressureUnits
@@ -261,4 +264,10 @@ fun PreferenceScreen(
         }
     }
 
+}
+
+@Preview
+@Composable
+private fun PreviewPreferenceScreen(){
+    PreferenceScreen(navController = rememberNavController(), context = LocalContext.current)
 }

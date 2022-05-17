@@ -33,6 +33,11 @@ class SimpleScreenViewModel @Inject constructor(
     private val applicationSettingsFlow = dataStoreManager.applicationSettingsFlow
     private var deviceAddress = ""
 
+    override fun onCleared() {
+        super.onCleared()
+        Timber.e("Simple screen view model cleared")
+    }
+
     init {
         viewModelScope.launch {
             //TODO collect only when called
